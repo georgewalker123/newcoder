@@ -105,7 +105,7 @@ def visualize_type():
     plt.subplots_adjust(bottom=0.4)
 
     # Make the overall graph/figure is larger
-    plt.rcParams("figure.figsize") = 12, 8
+    plt.rcParams["figure.figsize"] = 12, 8
     # Save the graph!
     plt.savefig("Type.png")
 
