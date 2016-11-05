@@ -11,7 +11,11 @@ Copyright (c) 2013 E. Lynn Root
 Distributed under the zlib png license. See LICENSE for details.
 """
 
+from collections import Counter
+
 import csv
+import matplotlib.pyplot as plt
+import numpy as np
 
 MY_FILE = "../data/sample_sfpd_incident_all.csv"
 
@@ -50,19 +54,31 @@ def visualize_days():
 
     # make a new variable "counter" from iterating through each line of data 
     # in the parsed data, and count how many incidents happen on each day of the week
+    counter = Counter(item["DayOfWeek"] for item in data_file)
 
     # separate the x-axis data (the days of the week) from the "counter" variable from 
     #the y-axis data (number of incidents per year)
+    data_list = [
+                counter["Monday"],
+                counter["Tuesday"],
+                counter["Wednesday"],
+                counter["Thursday"],
+                counter["Friday"],
+                counter["Saturday"],
+                counter["Sunday"]
+                ]
+    day_tuple = tuple(["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"])
 
     #with that y-axis data, assign it to a matplotlib plot instance
-
+    plt.plot(data_list)
     #create the amount of ticks needed for our x-axis and assign the labels 
-
+    plt.xticks(range(len(day_tuple)), day_tuple)
     # save the plot
-
+    plt.savefig("Days.png")
     #close plot file
-
-
+    plt.clf()
+def main():
+    visualize_days()
 """
 def main():
     new_data = parse(MY_FILE, ",")
